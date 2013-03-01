@@ -1,4 +1,3 @@
-[~/srcPLgrado/repeatedwords(master)]$ cat repeated_words.js 
 "use strict"; // Use ECMAScript 5 strict mode in browsers that support it
 
 $(document).ready(function() {
@@ -6,7 +5,7 @@ $(document).ready(function() {
 });
 
 function generateOutput(contents) {
-  return contents.replace(/____________________/__,'__________________________________');
+  return contents.replace(/\b(\w+)(\s+)\1\b/ig,'<span class="repeated">$1</span>$2');
 }
 
 function calculate(evt) {
@@ -40,6 +39,7 @@ var entityMap = {
   };
 
 function escapeHtml(string) {
-  return String(string).replace(/_________/g, function (s) {
-    return entityMap(s);
+  return String(string).replace(/[&<>\/'"]/g, function (s) {
+    return entityMap[s];
   });
+}
